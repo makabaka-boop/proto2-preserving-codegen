@@ -1,0 +1,23 @@
+{
+  "name": "proto2-ts-codegen",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "bin": {
+    "proto2ts": "./dist/compiler/cli.js"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "generate": "npm run build && node dist/compiler/cli.js test/demo.proto --out test/gen/demo.ts --runtime ../../src/runtime.js && node dist/compiler/cli.js test/fixtures/cross.proto --out test/gen/cross.ts --runtime ../../src/runtime.js",
+    "checkgen": "tsc -p test/gen/tsconfig.json",
+    "demo": "tsx test/demo-consumer.ts",
+    "test": "tsx test/run.ts",
+    "test:edge": "tsx test/edge-checks.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.4",
+    "protoc": "^36.2.0",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2"
+  }
+}

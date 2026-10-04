@@ -1,0 +1,40 @@
+syntax = "proto2";
+
+// A phone number attached to a person.
+message PhoneNumber {
+  // Digits only.
+  required string number = 1;
+  optional uint32 extension = 2;
+}
+
+// A person record. Demonstrates explicit defaults and packed repeats.
+message Person {
+  required string name = 1;
+  // Negative int32 values are encoded as 10-byte varints.
+  optional int32 score = 2;
+  optional sint32 delta = 3;
+  optional bool active = 4;
+  optional bytes avatar = 5;
+  // Packed numeric repeats.
+  repeated uint32 groups = 6 [packed = true];
+  repeated sint32 zigzags = 7 [packed = true];
+  repeated int32 scores = 8;
+  // string/bytes cannot be packed.
+  repeated string tags = 9;
+  repeated PhoneNumber phones = 10;
+  optional PhoneNumber primary_phone = 11;
+}
+
+// Recursive tree node: merges must combine, not replace.
+message Node {
+  required int32 id = 1;
+  optional Node child = 2;
+  repeated int32 weights = 3 [packed = true];
+}
+
+// Top-level envelope.
+message Envelope {
+  required string topic = 1;
+  optional Person person = 2;
+  repeated Node nodes = 3;
+}

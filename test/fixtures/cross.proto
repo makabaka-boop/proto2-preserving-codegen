@@ -1,0 +1,21 @@
+syntax = "proto2";
+
+// Fixture used only for protoc cross-codec tests.
+message Inner {
+  required int32 code = 1;
+  optional string note = 2;
+}
+
+message Cross {
+  required string title = 1;
+  optional int32 neg = 2;
+  optional sint32 zig = 3;
+  optional bool flag = 4;
+  optional bytes blob = 5;
+  repeated uint32 packed_u = 6 [packed = true];
+  repeated sint32 packed_s = 7 [packed = true];
+  repeated int32 loose = 8;
+  repeated string names = 9;
+  repeated Inner inners = 10;
+  optional Inner primary = 11;
+}
